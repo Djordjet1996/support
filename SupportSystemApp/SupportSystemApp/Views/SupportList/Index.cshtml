@@ -1,0 +1,100 @@
+﻿@model IEnumerable<SupportSystemApp.Models.SupportList>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Actions
+        </th>
+        <th>
+            Ticket No.
+        </th>
+        <th>
+            Title
+        </th>
+
+        <th>
+            Status
+        </th>
+        <th>
+            Category
+        </th>
+        <th>
+            Severity
+        </th>
+        <th>
+            Priority
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Raised By
+        </th>
+        <th>
+            Raised On
+        </th>
+        <th>
+            Due On
+        <th>
+            Resolved On
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.TicketNo }) |
+            @Html.ActionLink("Details", "Details", new { id = item.TicketNo }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.TicketNo })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TicketNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StatusesList.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryList.CategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SeverityList.SeverityName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriorityList.PriorityName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SectionsList.SectionName)
+        </td>
+
+
+        <td>
+            @Html.DisplayFor(modelItem => item.UserList.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RaisedOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DueOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResolvedOn)
+        </td>
+
+    </tr>
+}
+
+</table>
