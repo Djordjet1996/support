@@ -10,6 +10,7 @@ using SupportSystemApp.Models;
 
 namespace SupportSystemApp.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class UserListController : Controller
     {
         private DBPodrskaEntities db = new DBPodrskaEntities();

@@ -25,26 +25,30 @@
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav">
                             <li>@Html.ActionLink("Home", "Index", "SupportList")</li>
-                            <li style="cursor: text;pointer-events: none;"><strong>Admin Section</strong></li>
-                            <li>@Html.ActionLink("User Management", "Index", "UserList")</li>
-                            <li>@Html.ActionLink("System Sections", "Index", "SectionsList")</li>
-                            <li>@Html.ActionLink("Support Statuses", "Index", "StatusesList")</li>
-                        </ul>
+
+
+                            @if (Request.IsAuthenticated && User.IsInRole("Administrator"))
+                            {
+                                <li style="cursor: text;pointer-events: none;"><strong>Admin Section</strong></li>
+                                <li>@Html.ActionLink("User Management", "Index", "UserList")</li>
+                                <li>@Html.ActionLink("System Sections", "Index", "SectionsList")</li>
+                                <li>@Html.ActionLink("Support Statuses", "Index", "StatusesList")</li>
+                            }</ul>
                         @Html.Partial("_LoginPartial")
                     </div>
                 </div>
             </nav>
         </div>
 
-        <div class="col-sm-9"
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year- Support System</p>
-        </footer>
+    <div class="col-sm-9">
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year- Support System</p>
+            </footer>
+        </div>
     </div>
-    </div
     </div>
 
     @Scripts.Render("~/bundles/jquery")

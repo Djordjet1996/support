@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBPodrskaModelStoreContainer" CdmEntityContainer="DBPodrskaEntities">
+    <EntitySetMapping Name="CategoryLists">
+      <EntityTypeMapping TypeName="DBPodrskaModel.CategoryList">
+        <MappingFragment StoreEntitySet="CategoryList">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PriorityLists">
+      <EntityTypeMapping TypeName="DBPodrskaModel.PriorityList">
+        <MappingFragment StoreEntitySet="PriorityList">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="PriorityName" ColumnName="PriorityName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SectionsLists">
+      <EntityTypeMapping TypeName="DBPodrskaModel.SectionsList">
+        <MappingFragment StoreEntitySet="SectionsList">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SectionName" ColumnName="SectionName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeverityLists">
+      <EntityTypeMapping TypeName="DBPodrskaModel.SeverityList">
+        <MappingFragment StoreEntitySet="SeverityList">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SeverityName" ColumnName="SeverityName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StatusesLists">
+      <EntityTypeMapping TypeName="DBPodrskaModel.StatusesList">
+        <MappingFragment StoreEntitySet="StatusesList">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupportLists">
+      <EntityTypeMapping TypeName="DBPodrskaModel.SupportList">
+        <MappingFragment StoreEntitySet="SupportList">
+          <ScalarProperty Name="TicketNo" ColumnName="TicketNo" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Severity" ColumnName="Severity" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="RaisedBy" ColumnName="RaisedBy" />
+          <ScalarProperty Name="RaisedOn" ColumnName="RaisedOn" />
+          <ScalarProperty Name="DueOn" ColumnName="DueOn" />
+          <ScalarProperty Name="ResolvedOn" ColumnName="ResolvedOn" />
+          <ScalarProperty Name="IDSectionList" ColumnName="IDSectionList" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserLists">
+      <EntityTypeMapping TypeName="DBPodrskaModel.UserList">
+        <MappingFragment StoreEntitySet="UserList">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Activ" ColumnName="Activ" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
