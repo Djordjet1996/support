@@ -32,5 +32,7 @@ namespace SupportSystemApp.Models
         public virtual DbSet<StatusesList> StatusesLists { get; set; }
         public virtual DbSet<SupportList> SupportLists { get; set; }
         public virtual DbSet<UserList> UserLists { get; set; }
+
+        public System.Data.Entity.DbSet<SupportSystemApp.Models.Message> Messages { get; set; }
     }
 }
