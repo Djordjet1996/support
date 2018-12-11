@@ -12,24 +12,18 @@ namespace SupportSystemApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserList
+    public partial class AspNetRole
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UserList()
+        public AspNetRole()
         {
-            this.SupportLists = new HashSet<SupportList>();
+            this.AspNetUsers = new HashSet<AspNetUser>();
         }
     
-        public int ID { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
-        public string Phone { get; set; }
-        public string Role { get; set; }
-        public bool Activ { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SupportList> SupportLists { get; set; }
+        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
     }
 }

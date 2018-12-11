@@ -17,7 +17,7 @@ namespace SupportSystemApp.Controllers
         // GET: SupportList
         public ActionResult Index()
         {
-            var supportLists = db.SupportLists.Include(s => s.CategoryList).Include(s => s.PriorityList).Include(s => s.SectionsList).Include(s => s.SeverityList).Include(s => s.StatusesList).Include(s => s.UserList);
+            var supportLists = db.SupportLists.Include(s => s.CategoryList).Include(s => s.PriorityList).Include(s => s.SectionsList).Include(s => s.SeverityList).Include(s => s.StatusesList).Include(s => s.AspNetUsers);
             return View(supportLists.ToList());
         }
 
@@ -44,7 +44,7 @@ namespace SupportSystemApp.Controllers
             ViewBag.IDSectionList = new SelectList(db.SectionsLists, "ID", "SectionName");
             ViewBag.Severity = new SelectList(db.SeverityLists, "ID", "SeverityName");
             ViewBag.Status = new SelectList(db.StatusesLists, "ID", "Name");
-            ViewBag.RaisedBy = new SelectList(db.UserLists, "ID", "Name");
+            ViewBag.RaisedBy = new SelectList(db.AspNetUsers, "ID", "Name");
             return View();
         }
 
@@ -67,7 +67,7 @@ namespace SupportSystemApp.Controllers
             ViewBag.IDSectionList = new SelectList(db.SectionsLists, "ID", "SectionName", supportList.IDSectionList);
             ViewBag.Severity = new SelectList(db.SeverityLists, "ID", "SeverityName", supportList.Severity);
             ViewBag.Status = new SelectList(db.StatusesLists, "ID", "Name", supportList.Status);
-            ViewBag.RaisedBy = new SelectList(db.UserLists, "ID", "Name", supportList.RaisedBy);
+            ViewBag.RaisedBy = new SelectList(db.AspNetUsers, "ID", "Name", supportList.RaisedBy);
             return View(supportList);
         }
 
@@ -88,7 +88,7 @@ namespace SupportSystemApp.Controllers
             ViewBag.IDSectionList = new SelectList(db.SectionsLists, "ID", "SectionName", supportList.IDSectionList);
             ViewBag.Severity = new SelectList(db.SeverityLists, "ID", "SeverityName", supportList.Severity);
             ViewBag.Status = new SelectList(db.StatusesLists, "ID", "Name", supportList.Status);
-            ViewBag.RaisedBy = new SelectList(db.UserLists, "ID", "Name", supportList.RaisedBy);
+            ViewBag.RaisedBy = new SelectList(db.AspNetUsers, "ID", "Name", supportList.RaisedBy);
             return View(supportList);
         }
 
@@ -110,7 +110,7 @@ namespace SupportSystemApp.Controllers
             ViewBag.IDSectionList = new SelectList(db.SectionsLists, "ID", "SectionName", supportList.IDSectionList);
             ViewBag.Severity = new SelectList(db.SeverityLists, "ID", "SeverityName", supportList.Severity);
             ViewBag.Status = new SelectList(db.StatusesLists, "ID", "Name", supportList.Status);
-            ViewBag.RaisedBy = new SelectList(db.UserLists, "ID", "Name", supportList.RaisedBy);
+            ViewBag.RaisedBy = new SelectList(db.AspNetUsers, "ID", "Name", supportList.RaisedBy);
             return View(supportList);
         }
 

@@ -30,30 +30,35 @@
                             @if (Request.IsAuthenticated && User.IsInRole("Administrator"))
                             {
                                 <li style="cursor: text;pointer-events: none;"><strong>Admin Section</strong></li>
-                                <li>@Html.ActionLink("User Management", "Index", "UserList")</li>
+                                <li>@Html.ActionLink("User Management", "Index", "AspNetUsers")</li>
                                 <li>@Html.ActionLink("System Sections", "Index", "SectionsList")</li>
                                 <li>@Html.ActionLink("Support Statuses", "Index", "StatusesList")</li>
-                            }</ul>
+                            }
+                        </ul>
                         @Html.Partial("_LoginPartial")
                     </div>
                 </div>
             </nav>
         </div>
 
-    <div class="col-sm-9">
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year- Support System</p>
-            </footer>
+        <div class="col-sm-9">
+            <div class="container body-content">
+                @RenderBody()
+                <hr />
+                <footer>
+                    <p>&copy; @DateTime.Now.Year- Support System</p>
+                </footer>
+            </div>
         </div>
-    </div>
     </div>
 
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
 </html>

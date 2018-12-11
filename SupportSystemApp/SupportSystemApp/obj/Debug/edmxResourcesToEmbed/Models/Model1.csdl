@@ -62,21 +62,6 @@
     <NavigationProperty Name="SectionsList" Relationship="Self.FK_SupportList_SectionsList" FromRole="SupportList" ToRole="SectionsList" />
     <NavigationProperty Name="SeverityList" Relationship="Self.FK_SupportList_SeverityList" FromRole="SupportList" ToRole="SeverityList" />
     <NavigationProperty Name="StatusesList" Relationship="Self.FK_SupportList_StatusesList" FromRole="SupportList" ToRole="StatusesList" />
-    <NavigationProperty Name="UserList" Relationship="Self.FK_SupportList_UserList" FromRole="SupportList" ToRole="UserList" />
-  </EntityType>
-  <EntityType Name="UserList">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Activ" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="SupportLists" Relationship="Self.FK_SupportList_UserList" FromRole="UserList" ToRole="SupportList" />
   </EntityType>
   <Association Name="FK_SupportList_CategoryList">
     <End Role="CategoryList" Type="Self.CategoryList" Multiplicity="1" />
@@ -138,18 +123,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SupportList_UserList">
-    <End Role="UserList" Type="Self.UserList" Multiplicity="1" />
-    <End Role="SupportList" Type="Self.SupportList" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="UserList">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="SupportList">
-        <PropertyRef Name="RaisedBy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="DBPodrskaEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="CategoryLists" EntityType="Self.CategoryList" />
     <EntitySet Name="PriorityLists" EntityType="Self.PriorityList" />
@@ -157,7 +130,6 @@
     <EntitySet Name="SeverityLists" EntityType="Self.SeverityList" />
     <EntitySet Name="StatusesLists" EntityType="Self.StatusesList" />
     <EntitySet Name="SupportLists" EntityType="Self.SupportList" />
-    <EntitySet Name="UserLists" EntityType="Self.UserList" />
     <AssociationSet Name="FK_SupportList_CategoryList" Association="Self.FK_SupportList_CategoryList">
       <End Role="CategoryList" EntitySet="CategoryLists" />
       <End Role="SupportList" EntitySet="SupportLists" />
@@ -178,9 +150,178 @@
       <End Role="StatusesList" EntitySet="StatusesLists" />
       <End Role="SupportList" EntitySet="SupportLists" />
     </AssociationSet>
-    <AssociationSet Name="FK_SupportList_UserList" Association="Self.FK_SupportList_UserList">
-      <End Role="UserList" EntitySet="UserLists" />
-      <End Role="SupportList" EntitySet="SupportLists" />
+    <EntitySet Name="C__MigrationHistory" EntityType="DBPodrskaModel.C__MigrationHistory" />
+    <EntitySet Name="AspNetRoles" EntityType="DBPodrskaModel.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="DBPodrskaModel.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="DBPodrskaModel.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="DBPodrskaModel.AspNetUser" />
+    <EntitySet Name="Comments" EntityType="DBPodrskaModel.Comment" />
+    <EntitySet Name="Replies" EntityType="DBPodrskaModel.Reply" />
+    <EntitySet Name="sysdiagrams" EntityType="DBPodrskaModel.sysdiagram" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="DBPodrskaModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="DBPodrskaModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_AspNetUsers" Association="DBPodrskaModel.FK_Comments_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Replies_Comments" Association="DBPodrskaModel.FK_Replies_Comments">
+      <End Role="Comment" EntitySet="Comments" />
+      <End Role="Reply" EntitySet="Replies" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="DBPodrskaModel.AspNetUserRoles">
+      <End Role="AspNetRole" EntitySet="AspNetRoles" />
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
     </AssociationSet>
   </EntityContainer>
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="DBPodrskaModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="DBPodrskaModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="DBPodrskaModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="DBPodrskaModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="DBPodrskaModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+    <NavigationProperty Name="Comments" Relationship="DBPodrskaModel.FK_Comments_AspNetUsers" FromRole="AspNetUser" ToRole="Comment" />
+    <NavigationProperty Name="AspNetRoles" Relationship="DBPodrskaModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CommentsId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="DBPodrskaModel.FK_Comments_AspNetUsers" FromRole="Comment" ToRole="AspNetUser" />
+    <NavigationProperty Name="Replies" Relationship="DBPodrskaModel.FK_Replies_Comments" FromRole="Comment" ToRole="Reply" />
+  </EntityType>
+  <EntityType Name="Reply">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CommentId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Comment" Relationship="DBPodrskaModel.FK_Replies_Comments" FromRole="Reply" ToRole="Comment" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Type="DBPodrskaModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DBPodrskaModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaim">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Type="DBPodrskaModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DBPodrskaModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogin">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_AspNetUsers">
+    <End Type="DBPodrskaModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="DBPodrskaModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="CommentsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Replies_Comments">
+    <End Type="DBPodrskaModel.Comment" Role="Comment" Multiplicity="1" />
+    <End Type="DBPodrskaModel.Reply" Role="Reply" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Comment">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Reply">
+        <PropertyRef Name="CommentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Type="DBPodrskaModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+    <End Type="DBPodrskaModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+  </Association>
 </Schema>
