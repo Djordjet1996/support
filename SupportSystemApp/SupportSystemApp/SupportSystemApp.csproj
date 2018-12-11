@@ -203,7 +203,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SectionsListController.cs" />
     <Compile Include="Controllers\StatusesListController.cs" />
-    <Compile Include="Controllers\SupportListController.cs" />
+    <Compile Include="Controllers\SupportListsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -379,6 +379,11 @@
     <Content Include="Views\AspNetUsers\Details.cshtml" />
     <Content Include="Views\AspNetUsers\Edit.cshtml" />
     <Content Include="Views\AspNetUsers\Index.cshtml" />
+    <Content Include="Views\SupportLists\Create.cshtml" />
+    <Content Include="Views\SupportLists\Delete.cshtml" />
+    <Content Include="Views\SupportLists\Details.cshtml" />
+    <Content Include="Views\SupportLists\Edit.cshtml" />
+    <Content Include="Views\SupportLists\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

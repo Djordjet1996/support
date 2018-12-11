@@ -10,18 +10,18 @@ using SupportSystemApp.Models;
 
 namespace SupportSystemApp.Controllers
 {
-    public class SupportListController : Controller
+    public class SupportListsController : Controller
     {
         private DBPodrskaEntities db = new DBPodrskaEntities();
 
-        // GET: SupportList
+        // GET: SupportLists
         public ActionResult Index()
         {
-            var supportLists = db.SupportLists.Include(s => s.CategoryList).Include(s => s.PriorityList).Include(s => s.SectionsList).Include(s => s.SeverityList).Include(s => s.StatusesList).Include(s => s.AspNetUsers);
+            var supportLists = db.SupportLists.Include(s => s.PriorityList).Include(s => s.SectionsList).Include(s => s.SeverityList).Include(s => s.StatusesList).Include(s => s.CategoryList);
             return View(supportLists.ToList());
         }
 
-        // GET: SupportList/Details/5
+        // GET: SupportLists/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,19 +36,18 @@ namespace SupportSystemApp.Controllers
             return View(supportList);
         }
 
-        // GET: SupportList/Create
+        // GET: SupportLists/Create
         public ActionResult Create()
         {
-            ViewBag.Category = new SelectList(db.CategoryLists, "ID", "CategoryName");
             ViewBag.Priority = new SelectList(db.PriorityLists, "ID", "PriorityName");
             ViewBag.IDSectionList = new SelectList(db.SectionsLists, "ID", "SectionName");
             ViewBag.Severity = new SelectList(db.SeverityLists, "ID", "SeverityName");
             ViewBag.Status = new SelectList(db.StatusesLists, "ID", "Name");
-            ViewBag.RaisedBy = new SelectList(db.AspNetUsers, "ID", "Name");
+            ViewBag.Category = new SelectList(db.CategoryLists, "ID", "CategoryName");
             return View();
         }
 
-        // POST: SupportList/Create
+        // POST: SupportLists/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -62,16 +61,15 @@ namespace SupportSystemApp.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Category = new SelectList(db.CategoryLists, "ID", "CategoryName", supportList.Category);
             ViewBag.Priority = new SelectList(db.PriorityLists, "ID", "PriorityName", supportList.Priority);
             ViewBag.IDSectionList = new SelectList(db.SectionsLists, "ID", "SectionName", supportList.IDSectionList);
             ViewBag.Severity = new SelectList(db.SeverityLists, "ID", "SeverityName", supportList.Severity);
             ViewBag.Status = new SelectList(db.StatusesLists, "ID", "Name", supportList.Status);
-            ViewBag.RaisedBy = new SelectList(db.AspNetUsers, "ID", "Name", supportList.RaisedBy);
+            ViewBag.Category = new SelectList(db.CategoryLists, "ID", "CategoryName", supportList.Category);
             return View(supportList);
         }
 
-        // GET: SupportList/Edit/5
+        // GET: SupportLists/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -83,16 +81,15 @@ namespace SupportSystemApp.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Category = new SelectList(db.CategoryLists, "ID", "CategoryName", supportList.Category);
             ViewBag.Priority = new SelectList(db.PriorityLists, "ID", "PriorityName", supportList.Priority);
             ViewBag.IDSectionList = new SelectList(db.SectionsLists, "ID", "SectionName", supportList.IDSectionList);
             ViewBag.Severity = new SelectList(db.SeverityLists, "ID", "SeverityName", supportList.Severity);
             ViewBag.Status = new SelectList(db.StatusesLists, "ID", "Name", supportList.Status);
-            ViewBag.RaisedBy = new SelectList(db.AspNetUsers, "ID", "Name", supportList.RaisedBy);
+            ViewBag.Category = new SelectList(db.CategoryLists, "ID", "CategoryName", supportList.Category);
             return View(supportList);
         }
 
-        // POST: SupportList/Edit/5
+        // POST: SupportLists/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -105,16 +102,15 @@ namespace SupportSystemApp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Category = new SelectList(db.CategoryLists, "ID", "CategoryName", supportList.Category);
             ViewBag.Priority = new SelectList(db.PriorityLists, "ID", "PriorityName", supportList.Priority);
             ViewBag.IDSectionList = new SelectList(db.SectionsLists, "ID", "SectionName", supportList.IDSectionList);
             ViewBag.Severity = new SelectList(db.SeverityLists, "ID", "SeverityName", supportList.Severity);
             ViewBag.Status = new SelectList(db.StatusesLists, "ID", "Name", supportList.Status);
-            ViewBag.RaisedBy = new SelectList(db.AspNetUsers, "ID", "Name", supportList.RaisedBy);
+            ViewBag.Category = new SelectList(db.CategoryLists, "ID", "CategoryName", supportList.Category);
             return View(supportList);
         }
 
-        // GET: SupportList/Delete/5
+        // GET: SupportLists/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -129,7 +125,7 @@ namespace SupportSystemApp.Controllers
             return View(supportList);
         }
 
-        // POST: SupportList/Delete/5
+        // POST: SupportLists/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

@@ -124,7 +124,7 @@
     <Property Name="Category" Type="int" Nullable="false" />
     <Property Name="Severity" Type="int" Nullable="false" />
     <Property Name="Priority" Type="int" Nullable="false" />
-    <Property Name="RaisedBy" Type="int" Nullable="false" />
+    <Property Name="RaisedBy" Type="nvarchar" MaxLength="256" Nullable="false" />
     <Property Name="RaisedOn" Type="date" Nullable="false" />
     <Property Name="DueOn" Type="date" Nullable="false" />
     <Property Name="ResolvedOn" Type="date" />
@@ -220,6 +220,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_SupportList_AspNetUsers' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_SupportList_AspNetUsers" />-->
   <Association Name="FK_SupportList_CategoryList">
     <End Role="CategoryList" Type="Self.CategoryList" Multiplicity="1" />
     <End Role="SupportList" Type="Self.SupportList" Multiplicity="*" />

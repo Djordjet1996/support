@@ -1,0 +1,88 @@
+﻿@model IEnumerable<SupportSystemApp.Models.SupportList>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RaisedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RaisedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DueOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResolvedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriorityList.PriorityName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SectionsList.SectionName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SeverityList.SeverityName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatusesList.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryList.CategoryName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RaisedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RaisedOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DueOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResolvedOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriorityList.PriorityName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SectionsList.SectionName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SeverityList.SeverityName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StatusesList.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryList.CategoryName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TicketNo }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TicketNo }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TicketNo })
+        </td>
+    </tr>
+}
+
+</table>

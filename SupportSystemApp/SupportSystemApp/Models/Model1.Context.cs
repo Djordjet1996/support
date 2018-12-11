@@ -25,12 +25,10 @@ namespace SupportSystemApp.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<CategoryList> CategoryLists { get; set; }
         public virtual DbSet<PriorityList> PriorityLists { get; set; }
         public virtual DbSet<SectionsList> SectionsLists { get; set; }
         public virtual DbSet<SeverityList> SeverityLists { get; set; }
         public virtual DbSet<StatusesList> StatusesLists { get; set; }
-        public virtual DbSet<SupportList> SupportLists { get; set; }
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
@@ -39,5 +37,7 @@ namespace SupportSystemApp.Models
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Reply> Replies { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<SupportList> SupportLists { get; set; }
+        public virtual DbSet<CategoryList> CategoryLists { get; set; }
     }
 }

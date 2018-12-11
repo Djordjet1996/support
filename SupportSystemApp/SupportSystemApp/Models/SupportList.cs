@@ -20,17 +20,17 @@ namespace SupportSystemApp.Models
         public int Category { get; set; }
         public int Severity { get; set; }
         public int Priority { get; set; }
-        public int RaisedBy { get; set; }
+        public string RaisedBy { get; set; }
         public System.DateTime RaisedOn { get; set; }
         public System.DateTime DueOn { get; set; }
         public Nullable<System.DateTime> ResolvedOn { get; set; }
         public Nullable<int> IDSectionList { get; set; }
     
-        public virtual CategoryList CategoryList { get; set; }
         public virtual PriorityList PriorityList { get; set; }
         public virtual SectionsList SectionsList { get; set; }
         public virtual SeverityList SeverityList { get; set; }
         public virtual StatusesList StatusesList { get; set; }
-        public object AspNetUsers { get; internal set; }
+        public virtual CategoryList CategoryList { get; set; }
+        public virtual AspNetUser AspNetUsers { get; internal set; }
     }
 }

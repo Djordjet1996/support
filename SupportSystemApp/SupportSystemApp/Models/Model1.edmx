@@ -129,7 +129,7 @@
           <Property Name="Category" Type="int" Nullable="false" />
           <Property Name="Severity" Type="int" Nullable="false" />
           <Property Name="Priority" Type="int" Nullable="false" />
-          <Property Name="RaisedBy" Type="int" Nullable="false" />
+          <Property Name="RaisedBy" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="RaisedOn" Type="date" Nullable="false" />
           <Property Name="DueOn" Type="date" Nullable="false" />
           <Property Name="ResolvedOn" Type="date" />
@@ -225,6 +225,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_SupportList_AspNetUsers' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_SupportList_AspNetUsers" />-->
         <Association Name="FK_SupportList_CategoryList">
           <End Role="CategoryList" Type="Self.CategoryList" Multiplicity="1" />
           <End Role="SupportList" Type="Self.SupportList" Multiplicity="*" />
@@ -350,21 +353,13 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBPodrskaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="CategoryList">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="SupportLists" Relationship="Self.FK_SupportList_CategoryList" FromRole="CategoryList" ToRole="SupportList" />
-        </EntityType>
         <EntityType Name="PriorityList">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PriorityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="SupportLists" Relationship="Self.FK_SupportList_PriorityList" FromRole="PriorityList" ToRole="SupportList" />
+          <NavigationProperty Name="SupportLists" Relationship="DBPodrskaModel.FK_SupportList_PriorityList" FromRole="PriorityList" ToRole="SupportList" />
         </EntityType>
         <EntityType Name="SectionsList">
           <Key>
@@ -373,7 +368,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SectionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="SupportLists" Relationship="Self.FK_SupportList_SectionsList" FromRole="SectionsList" ToRole="SupportList" />
+          <NavigationProperty Name="SupportLists" Relationship="DBPodrskaModel.FK_SupportList_SectionsList" FromRole="SectionsList" ToRole="SupportList" />
         </EntityType>
         <EntityType Name="SeverityList">
           <Key>
@@ -381,7 +376,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SeverityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="SupportLists" Relationship="Self.FK_SupportList_SeverityList" FromRole="SeverityList" ToRole="SupportList" />
+          <NavigationProperty Name="SupportLists" Relationship="DBPodrskaModel.FK_SupportList_SeverityList" FromRole="SeverityList" ToRole="SupportList" />
         </EntityType>
         <EntityType Name="StatusesList">
           <Key>
@@ -390,116 +385,13 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="SupportLists" Relationship="Self.FK_SupportList_StatusesList" FromRole="StatusesList" ToRole="SupportList" />
+          <NavigationProperty Name="SupportLists" Relationship="DBPodrskaModel.FK_SupportList_StatusesList" FromRole="StatusesList" ToRole="SupportList" />
         </EntityType>
-        <EntityType Name="SupportList">
-          <Key>
-            <PropertyRef Name="TicketNo" />
-          </Key>
-          <Property Name="TicketNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
-          <Property Name="Category" Type="Int32" Nullable="false" />
-          <Property Name="Severity" Type="Int32" Nullable="false" />
-          <Property Name="Priority" Type="Int32" Nullable="false" />
-          <Property Name="RaisedBy" Type="Int32" Nullable="false" />
-          <Property Name="RaisedOn" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="DueOn" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ResolvedOn" Type="DateTime" Precision="0" />
-          <Property Name="IDSectionList" Type="Int32" />
-          <NavigationProperty Name="CategoryList" Relationship="Self.FK_SupportList_CategoryList" FromRole="SupportList" ToRole="CategoryList" />
-          <NavigationProperty Name="PriorityList" Relationship="Self.FK_SupportList_PriorityList" FromRole="SupportList" ToRole="PriorityList" />
-          <NavigationProperty Name="SectionsList" Relationship="Self.FK_SupportList_SectionsList" FromRole="SupportList" ToRole="SectionsList" />
-          <NavigationProperty Name="SeverityList" Relationship="Self.FK_SupportList_SeverityList" FromRole="SupportList" ToRole="SeverityList" />
-          <NavigationProperty Name="StatusesList" Relationship="Self.FK_SupportList_StatusesList" FromRole="SupportList" ToRole="StatusesList" />
-        </EntityType>
-        <Association Name="FK_SupportList_CategoryList">
-          <End Role="CategoryList" Type="Self.CategoryList" Multiplicity="1" />
-          <End Role="SupportList" Type="Self.SupportList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CategoryList">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SupportList">
-              <PropertyRef Name="Category" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SupportList_PriorityList">
-          <End Role="PriorityList" Type="Self.PriorityList" Multiplicity="1" />
-          <End Role="SupportList" Type="Self.SupportList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PriorityList">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SupportList">
-              <PropertyRef Name="Priority" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SupportList_SectionsList">
-          <End Role="SectionsList" Type="Self.SectionsList" Multiplicity="0..1" />
-          <End Role="SupportList" Type="Self.SupportList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SectionsList">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SupportList">
-              <PropertyRef Name="IDSectionList" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SupportList_SeverityList">
-          <End Role="SeverityList" Type="Self.SeverityList" Multiplicity="1" />
-          <End Role="SupportList" Type="Self.SupportList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SeverityList">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SupportList">
-              <PropertyRef Name="Severity" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SupportList_StatusesList">
-          <End Role="StatusesList" Type="Self.StatusesList" Multiplicity="1" />
-          <End Role="SupportList" Type="Self.SupportList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StatusesList">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SupportList">
-              <PropertyRef Name="Status" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="DBPodrskaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CategoryLists" EntityType="Self.CategoryList" />
           <EntitySet Name="PriorityLists" EntityType="Self.PriorityList" />
           <EntitySet Name="SectionsLists" EntityType="Self.SectionsList" />
           <EntitySet Name="SeverityLists" EntityType="Self.SeverityList" />
           <EntitySet Name="StatusesLists" EntityType="Self.StatusesList" />
-          <EntitySet Name="SupportLists" EntityType="Self.SupportList" />
-          <AssociationSet Name="FK_SupportList_CategoryList" Association="Self.FK_SupportList_CategoryList">
-            <End Role="CategoryList" EntitySet="CategoryLists" />
-            <End Role="SupportList" EntitySet="SupportLists" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SupportList_PriorityList" Association="Self.FK_SupportList_PriorityList">
-            <End Role="PriorityList" EntitySet="PriorityLists" />
-            <End Role="SupportList" EntitySet="SupportLists" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SupportList_SectionsList" Association="Self.FK_SupportList_SectionsList">
-            <End Role="SectionsList" EntitySet="SectionsLists" />
-            <End Role="SupportList" EntitySet="SupportLists" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SupportList_SeverityList" Association="Self.FK_SupportList_SeverityList">
-            <End Role="SeverityList" EntitySet="SeverityLists" />
-            <End Role="SupportList" EntitySet="SupportLists" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SupportList_StatusesList" Association="Self.FK_SupportList_StatusesList">
-            <End Role="StatusesList" EntitySet="StatusesLists" />
-            <End Role="SupportList" EntitySet="SupportLists" />
-          </AssociationSet>
           <EntitySet Name="C__MigrationHistory" EntityType="DBPodrskaModel.C__MigrationHistory" />
           <EntitySet Name="AspNetRoles" EntityType="DBPodrskaModel.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="DBPodrskaModel.AspNetUserClaim" />
@@ -527,6 +419,28 @@
           <AssociationSet Name="AspNetUserRoles" Association="DBPodrskaModel.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="SupportLists" EntityType="DBPodrskaModel.SupportList" />
+          <AssociationSet Name="FK_SupportList_PriorityList" Association="DBPodrskaModel.FK_SupportList_PriorityList">
+            <End Role="PriorityList" EntitySet="PriorityLists" />
+            <End Role="SupportList" EntitySet="SupportLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupportList_SectionsList" Association="DBPodrskaModel.FK_SupportList_SectionsList">
+            <End Role="SectionsList" EntitySet="SectionsLists" />
+            <End Role="SupportList" EntitySet="SupportLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupportList_SeverityList" Association="DBPodrskaModel.FK_SupportList_SeverityList">
+            <End Role="SeverityList" EntitySet="SeverityLists" />
+            <End Role="SupportList" EntitySet="SupportLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupportList_StatusesList" Association="DBPodrskaModel.FK_SupportList_StatusesList">
+            <End Role="StatusesList" EntitySet="StatusesLists" />
+            <End Role="SupportList" EntitySet="SupportLists" />
+          </AssociationSet>
+          <EntitySet Name="CategoryLists" EntityType="DBPodrskaModel.CategoryList" />
+          <AssociationSet Name="FK_SupportList_CategoryList" Association="DBPodrskaModel.FK_SupportList_CategoryList">
+            <End Role="CategoryList" EntitySet="CategoryLists" />
+            <End Role="SupportList" EntitySet="SupportLists" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -674,20 +588,101 @@
           <End Type="DBPodrskaModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="DBPodrskaModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
+        <EntityType Name="SupportList">
+          <Key>
+            <PropertyRef Name="TicketNo" />
+          </Key>
+          <Property Name="TicketNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Category" Type="Int32" Nullable="false" />
+          <Property Name="Severity" Type="Int32" Nullable="false" />
+          <Property Name="Priority" Type="Int32" Nullable="false" />
+          <Property Name="RaisedBy" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="RaisedOn" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DueOn" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ResolvedOn" Type="DateTime" Precision="0" />
+          <Property Name="IDSectionList" Type="Int32" />
+          <NavigationProperty Name="PriorityList" Relationship="DBPodrskaModel.FK_SupportList_PriorityList" FromRole="SupportList" ToRole="PriorityList" />
+          <NavigationProperty Name="SectionsList" Relationship="DBPodrskaModel.FK_SupportList_SectionsList" FromRole="SupportList" ToRole="SectionsList" />
+          <NavigationProperty Name="SeverityList" Relationship="DBPodrskaModel.FK_SupportList_SeverityList" FromRole="SupportList" ToRole="SeverityList" />
+          <NavigationProperty Name="StatusesList" Relationship="DBPodrskaModel.FK_SupportList_StatusesList" FromRole="SupportList" ToRole="StatusesList" />
+          <NavigationProperty Name="CategoryList" Relationship="DBPodrskaModel.FK_SupportList_CategoryList" FromRole="SupportList" ToRole="CategoryList" />
+        </EntityType>
+        <Association Name="FK_SupportList_PriorityList">
+          <End Type="DBPodrskaModel.PriorityList" Role="PriorityList" Multiplicity="1" />
+          <End Type="DBPodrskaModel.SupportList" Role="SupportList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriorityList">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupportList">
+              <PropertyRef Name="Priority" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupportList_SectionsList">
+          <End Type="DBPodrskaModel.SectionsList" Role="SectionsList" Multiplicity="0..1" />
+          <End Type="DBPodrskaModel.SupportList" Role="SupportList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SectionsList">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupportList">
+              <PropertyRef Name="IDSectionList" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupportList_SeverityList">
+          <End Type="DBPodrskaModel.SeverityList" Role="SeverityList" Multiplicity="1" />
+          <End Type="DBPodrskaModel.SupportList" Role="SupportList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SeverityList">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupportList">
+              <PropertyRef Name="Severity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupportList_StatusesList">
+          <End Type="DBPodrskaModel.StatusesList" Role="StatusesList" Multiplicity="1" />
+          <End Type="DBPodrskaModel.SupportList" Role="SupportList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusesList">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupportList">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CategoryList">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SupportLists" Relationship="DBPodrskaModel.FK_SupportList_CategoryList" FromRole="CategoryList" ToRole="SupportList" />
+        </EntityType>
+        <Association Name="FK_SupportList_CategoryList">
+          <End Type="DBPodrskaModel.CategoryList" Role="CategoryList" Multiplicity="1" />
+          <End Type="DBPodrskaModel.SupportList" Role="SupportList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryList">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupportList">
+              <PropertyRef Name="Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DBPodrskaModelStoreContainer" CdmEntityContainer="DBPodrskaEntities">
-          <EntitySetMapping Name="CategoryLists">
-            <EntityTypeMapping TypeName="DBPodrskaModel.CategoryList">
-              <MappingFragment StoreEntitySet="CategoryList">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PriorityLists">
             <EntityTypeMapping TypeName="DBPodrskaModel.PriorityList">
               <MappingFragment StoreEntitySet="PriorityList">
@@ -719,23 +714,6 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SupportLists">
-            <EntityTypeMapping TypeName="DBPodrskaModel.SupportList">
-              <MappingFragment StoreEntitySet="SupportList">
-                <ScalarProperty Name="TicketNo" ColumnName="TicketNo" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="Severity" ColumnName="Severity" />
-                <ScalarProperty Name="Priority" ColumnName="Priority" />
-                <ScalarProperty Name="RaisedBy" ColumnName="RaisedBy" />
-                <ScalarProperty Name="RaisedOn" ColumnName="RaisedOn" />
-                <ScalarProperty Name="DueOn" ColumnName="DueOn" />
-                <ScalarProperty Name="ResolvedOn" ColumnName="ResolvedOn" />
-                <ScalarProperty Name="IDSectionList" ColumnName="IDSectionList" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -831,6 +809,31 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="SupportLists">
+            <EntityTypeMapping TypeName="DBPodrskaModel.SupportList">
+              <MappingFragment StoreEntitySet="SupportList">
+                <ScalarProperty Name="IDSectionList" ColumnName="IDSectionList" />
+                <ScalarProperty Name="ResolvedOn" ColumnName="ResolvedOn" />
+                <ScalarProperty Name="DueOn" ColumnName="DueOn" />
+                <ScalarProperty Name="RaisedOn" ColumnName="RaisedOn" />
+                <ScalarProperty Name="RaisedBy" ColumnName="RaisedBy" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Severity" ColumnName="Severity" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="TicketNo" ColumnName="TicketNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoryLists">
+            <EntityTypeMapping TypeName="DBPodrskaModel.CategoryList">
+              <MappingFragment StoreEntitySet="CategoryList">
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
