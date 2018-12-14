@@ -39,5 +39,7 @@ namespace SupportSystemApp.Models
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<SupportList> SupportLists { get; set; }
         public virtual DbSet<CategoryList> CategoryLists { get; set; }
+
+        public System.Data.Entity.DbSet<SupportSystemApp.Models.Message> Messages { get; set; }
     }
 }

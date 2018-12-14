@@ -371,7 +371,6 @@
     <Content Include="Views\StatusesList\Details.cshtml" />
     <Content Include="Views\StatusesList\Edit.cshtml" />
     <Content Include="Views\StatusesList\Index.cshtml" />
-    <Content Include="Views\Chat\Index.cshtml" />
     <Content Include="Views\Chat\Chat.cshtml" />
     <Content Include="Views\Chat\Message.cshtml" />
     <Content Include="Views\AspNetUsers\Create.cshtml" />

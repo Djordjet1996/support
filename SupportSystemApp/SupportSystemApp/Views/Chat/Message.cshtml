@@ -1,7 +1,9 @@
 ﻿@model SupportSystemApp.Models.Message
+@using Microsoft.AspNet.Identity
+
 
 <div>
-    <h4>@Model.Name</h4>
+    <h4>@User.Identity.GetUserName()</h4>
     <h6>@Model.Time</h6>
     <p>@Model.Content</p>
 </div>

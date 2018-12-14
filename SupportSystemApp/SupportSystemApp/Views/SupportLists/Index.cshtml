@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<SupportSystemApp.Models.SupportList>
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -45,44 +44,45 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RaisedBy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RaisedOn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DueOn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ResolvedOn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PriorityList.PriorityName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SectionsList.SectionName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SeverityList.SeverityName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StatusesList.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryList.CategoryName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TicketNo }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TicketNo }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TicketNo })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RaisedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RaisedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DueOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResolvedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PriorityList.PriorityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SectionsList.SectionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeverityList.SeverityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusesList.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryList.CategoryName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.TicketNo }) |
+                @Html.ActionLink("Details", "Details", new { id = item.TicketNo }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.TicketNo })
+            </td>
+        </tr>
+    }
 
 </table>
