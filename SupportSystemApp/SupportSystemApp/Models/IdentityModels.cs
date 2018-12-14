@@ -24,6 +24,9 @@ namespace SupportSystemApp.Models
         {
         }
 
+        public object Comment { get; internal set; }
+        public object Message { get; internal set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

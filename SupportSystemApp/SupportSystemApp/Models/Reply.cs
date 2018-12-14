@@ -12,7 +12,7 @@ namespace SupportSystemApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Reply
+    public class Reply
     {
         public int ID { get; set; }
         public string Text { get; set; }
