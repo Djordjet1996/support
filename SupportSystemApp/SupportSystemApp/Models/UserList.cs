@@ -11,22 +11,26 @@ namespace SupportSystemApp.Models
 {
     using System;
     using System.Collections.Generic;
-    using SupportSystemApp.Models;
     
-    public class Comment
+    public partial class UserList
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Comment()
+        public UserList()
         {
-            this.Replies = new HashSet<Reply>();
+            this.SupportLists = new HashSet<SupportList>();
         }
     
         public int ID { get; set; }
-        public string Text { get; set; }
-        public string CommentsId { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public string Phone { get; set; }
+        public string Role { get; set; }
+        public bool Activ { get; set; }
+        public string AspNetUsersID { get; set; }
     
-        public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reply> Replies { get; set; }
+        public virtual ICollection<SupportList> SupportLists { get; set; }
     }
 }

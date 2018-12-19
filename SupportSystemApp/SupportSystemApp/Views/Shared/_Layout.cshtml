@@ -24,16 +24,19 @@
                     </div>
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav">
-                            <li>@Html.ActionLink("Home", "Index", "SupportLists")</li>
+                            @if (Request.IsAuthenticated)
+                            {
+                            <li>@Html.ActionLink("SupportList", "Index", "SupportLists")</li>
+                            }
 
-
-                            @if (Request.IsAuthenticated && User.IsInRole("Administrator"))
+                            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                             {
                                 <li style="cursor: text;pointer-events: none;"><strong>Admin Section</strong></li>
                                 <li>@Html.ActionLink("User Management", "Index", "AspNetUsers")</li>
                                 <li>@Html.ActionLink("System Sections", "Index", "SectionsList")</li>
                                 <li>@Html.ActionLink("Support Statuses", "Index", "StatusesList")</li>
                             }
+                                
                         </ul>
                         @Html.Partial("_LoginPartial")
                     </div>

@@ -75,6 +75,11 @@
     <EntitySetMapping Name="AspNetUsers">
       <EntityTypeMapping TypeName="DBPodrskaModel.AspNetUser">
         <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="Activ" ColumnName="Activ" />
+          <ScalarProperty Name="UserPhone" ColumnName="UserPhone" />
+          <ScalarProperty Name="UserCountry" ColumnName="UserCountry" />
+          <ScalarProperty Name="UserCity" ColumnName="UserCity" />
+          <ScalarProperty Name="UserAddress" ColumnName="UserAddress" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
           <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
@@ -87,24 +92,6 @@
           <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Comments">
-      <EntityTypeMapping TypeName="DBPodrskaModel.Comment">
-        <MappingFragment StoreEntitySet="Comments">
-          <ScalarProperty Name="CommentsId" ColumnName="CommentsId" />
-          <ScalarProperty Name="Text" ColumnName="Text" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Replies">
-      <EntityTypeMapping TypeName="DBPodrskaModel.Reply">
-        <MappingFragment StoreEntitySet="Replies">
-          <ScalarProperty Name="CommentId" ColumnName="CommentId" />
-          <ScalarProperty Name="Text" ColumnName="Text" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

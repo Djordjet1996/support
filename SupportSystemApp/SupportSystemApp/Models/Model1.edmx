@@ -65,6 +65,11 @@
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="UserAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="UserCity" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserCountry" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Activ" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="CategoryList">
           <Key>
@@ -73,28 +78,12 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Comments">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="Text" Type="nvarchar(max)" />
-          <Property Name="CommentsId" Type="nvarchar" MaxLength="128" Nullable="false" />
-        </EntityType>
         <EntityType Name="PriorityList">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PriorityName" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="Replies">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="Text" Type="nvarchar(max)" />
-          <Property Name="CommentId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SectionsList">
           <Key>
@@ -129,7 +118,7 @@
           <Property Name="Category" Type="int" Nullable="false" />
           <Property Name="Severity" Type="int" Nullable="false" />
           <Property Name="Priority" Type="int" Nullable="false" />
-          <Property Name="RaisedBy" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="RaisedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="RaisedOn" Type="date" Nullable="false" />
           <Property Name="DueOn" Type="date" Nullable="false" />
           <Property Name="ResolvedOn" Type="date" />
@@ -145,18 +134,6 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <Association Name="FK_Comments_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Comments">
-              <PropertyRef Name="CommentsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -213,21 +190,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Replies_Comments">
-          <End Role="Comments" Type="Self.Comments" Multiplicity="1" />
-          <End Role="Replies" Type="Self.Replies" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Comments">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Replies">
-              <PropertyRef Name="CommentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <!--Errors Found During Generation:
-warning 6035: The relationship 'FK_SupportList_AspNetUsers' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK_SupportList_AspNetUsers" />-->
         <Association Name="FK_SupportList_CategoryList">
           <End Role="CategoryList" Type="Self.CategoryList" Multiplicity="1" />
           <End Role="SupportList" Type="Self.SupportList" Multiplicity="*" />
@@ -296,18 +258,12 @@ warning 6035: The relationship 'FK_SupportList_AspNetUsers' has columns that are
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CategoryList" EntityType="Self.CategoryList" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PriorityList" EntityType="Self.PriorityList" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Replies" EntityType="Self.Replies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SectionsList" EntityType="Self.SectionsList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SeverityList" EntityType="Self.SeverityList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StatusesList" EntityType="Self.StatusesList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupportList" EntityType="Self.SupportList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Comments_AspNetUsers" Association="Self.FK_Comments_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Comments" EntitySet="Comments" />
-          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -323,10 +279,6 @@ warning 6035: The relationship 'FK_SupportList_AspNetUsers' has columns that are
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Replies_Comments" Association="Self.FK_Replies_Comments">
-            <End Role="Comments" EntitySet="Comments" />
-            <End Role="Replies" EntitySet="Replies" />
           </AssociationSet>
           <AssociationSet Name="FK_SupportList_CategoryList" Association="Self.FK_SupportList_CategoryList">
             <End Role="CategoryList" EntitySet="CategoryList" />
@@ -397,8 +349,6 @@ warning 6035: The relationship 'FK_SupportList_AspNetUsers' has columns that are
           <EntitySet Name="AspNetUserClaims" EntityType="DBPodrskaModel.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="DBPodrskaModel.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="DBPodrskaModel.AspNetUser" />
-          <EntitySet Name="Comments" EntityType="DBPodrskaModel.Comment" />
-          <EntitySet Name="Replies" EntityType="DBPodrskaModel.Reply" />
           <EntitySet Name="sysdiagrams" EntityType="DBPodrskaModel.sysdiagram" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="DBPodrskaModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
@@ -407,14 +357,6 @@ warning 6035: The relationship 'FK_SupportList_AspNetUsers' has columns that are
           <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="DBPodrskaModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Comments_AspNetUsers" Association="DBPodrskaModel.FK_Comments_AspNetUsers">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="Comment" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Replies_Comments" Association="DBPodrskaModel.FK_Replies_Comments">
-            <End Role="Comment" EntitySet="Comments" />
-            <End Role="Reply" EntitySet="Replies" />
           </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="DBPodrskaModel.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
@@ -500,27 +442,12 @@ warning 6035: The relationship 'FK_SupportList_AspNetUsers' has columns that are
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="DBPodrskaModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="DBPodrskaModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
-          <NavigationProperty Name="Comments" Relationship="DBPodrskaModel.FK_Comments_AspNetUsers" FromRole="AspNetUser" ToRole="Comment" />
           <NavigationProperty Name="AspNetRoles" Relationship="DBPodrskaModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
-        </EntityType>
-        <EntityType Name="Comment">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CommentsId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="DBPodrskaModel.FK_Comments_AspNetUsers" FromRole="Comment" ToRole="AspNetUser" />
-          <NavigationProperty Name="Replies" Relationship="DBPodrskaModel.FK_Replies_Comments" FromRole="Comment" ToRole="Reply" />
-        </EntityType>
-        <EntityType Name="Reply">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CommentId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Comment" Relationship="DBPodrskaModel.FK_Replies_Comments" FromRole="Reply" ToRole="Comment" />
+          <Property Name="UserAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Activ" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -560,30 +487,6 @@ warning 6035: The relationship 'FK_SupportList_AspNetUsers' has columns that are
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Comments_AspNetUsers">
-          <End Type="DBPodrskaModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-          <End Type="DBPodrskaModel.Comment" Role="Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Comment">
-              <PropertyRef Name="CommentsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Replies_Comments">
-          <End Type="DBPodrskaModel.Comment" Role="Comment" Multiplicity="1" />
-          <End Type="DBPodrskaModel.Reply" Role="Reply" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Comment">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Reply">
-              <PropertyRef Name="CommentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="AspNetUserRoles">
           <End Type="DBPodrskaModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="DBPodrskaModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
@@ -598,7 +501,7 @@ warning 6035: The relationship 'FK_SupportList_AspNetUsers' has columns that are
           <Property Name="Category" Type="Int32" Nullable="false" />
           <Property Name="Severity" Type="Int32" Nullable="false" />
           <Property Name="Priority" Type="Int32" Nullable="false" />
-          <Property Name="RaisedBy" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="RaisedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RaisedOn" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="DueOn" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ResolvedOn" Type="DateTime" Precision="0" />
@@ -757,6 +660,11 @@ warning 6035: The relationship 'FK_SupportList_AspNetUsers' has columns that are
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="DBPodrskaModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Activ" ColumnName="Activ" />
+                <ScalarProperty Name="UserPhone" ColumnName="UserPhone" />
+                <ScalarProperty Name="UserCountry" ColumnName="UserCountry" />
+                <ScalarProperty Name="UserCity" ColumnName="UserCity" />
+                <ScalarProperty Name="UserAddress" ColumnName="UserAddress" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
@@ -769,24 +677,6 @@ warning 6035: The relationship 'FK_SupportList_AspNetUsers' has columns that are
                 <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Comments">
-            <EntityTypeMapping TypeName="DBPodrskaModel.Comment">
-              <MappingFragment StoreEntitySet="Comments">
-                <ScalarProperty Name="CommentsId" ColumnName="CommentsId" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Replies">
-            <EntityTypeMapping TypeName="DBPodrskaModel.Reply">
-              <MappingFragment StoreEntitySet="Replies">
-                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

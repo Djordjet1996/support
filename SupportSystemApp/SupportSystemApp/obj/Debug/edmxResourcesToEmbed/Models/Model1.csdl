@@ -44,8 +44,6 @@
     <EntitySet Name="AspNetUserClaims" EntityType="DBPodrskaModel.AspNetUserClaim" />
     <EntitySet Name="AspNetUserLogins" EntityType="DBPodrskaModel.AspNetUserLogin" />
     <EntitySet Name="AspNetUsers" EntityType="DBPodrskaModel.AspNetUser" />
-    <EntitySet Name="Comments" EntityType="DBPodrskaModel.Comment" />
-    <EntitySet Name="Replies" EntityType="DBPodrskaModel.Reply" />
     <EntitySet Name="sysdiagrams" EntityType="DBPodrskaModel.sysdiagram" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="DBPodrskaModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
@@ -54,14 +52,6 @@
     <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="DBPodrskaModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
       <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Comments_AspNetUsers" Association="DBPodrskaModel.FK_Comments_AspNetUsers">
-      <End Role="AspNetUser" EntitySet="AspNetUsers" />
-      <End Role="Comment" EntitySet="Comments" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Replies_Comments" Association="DBPodrskaModel.FK_Replies_Comments">
-      <End Role="Comment" EntitySet="Comments" />
-      <End Role="Reply" EntitySet="Replies" />
     </AssociationSet>
     <AssociationSet Name="AspNetUserRoles" Association="DBPodrskaModel.AspNetUserRoles">
       <End Role="AspNetRole" EntitySet="AspNetRoles" />
@@ -147,27 +137,12 @@
     <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="AspNetUserClaims" Relationship="DBPodrskaModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
     <NavigationProperty Name="AspNetUserLogins" Relationship="DBPodrskaModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
-    <NavigationProperty Name="Comments" Relationship="DBPodrskaModel.FK_Comments_AspNetUsers" FromRole="AspNetUser" ToRole="Comment" />
     <NavigationProperty Name="AspNetRoles" Relationship="DBPodrskaModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
-  </EntityType>
-  <EntityType Name="Comment">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" />
-    <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="CommentsId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="AspNetUser" Relationship="DBPodrskaModel.FK_Comments_AspNetUsers" FromRole="Comment" ToRole="AspNetUser" />
-    <NavigationProperty Name="Replies" Relationship="DBPodrskaModel.FK_Replies_Comments" FromRole="Comment" ToRole="Reply" />
-  </EntityType>
-  <EntityType Name="Reply">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" />
-    <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="CommentId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Comment" Relationship="DBPodrskaModel.FK_Replies_Comments" FromRole="Reply" ToRole="Comment" />
+    <Property Name="UserAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="UserCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Activ" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
@@ -207,30 +182,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Comments_AspNetUsers">
-    <End Type="DBPodrskaModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-    <End Type="DBPodrskaModel.Comment" Role="Comment" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetUser">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Comment">
-        <PropertyRef Name="CommentsId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Replies_Comments">
-    <End Type="DBPodrskaModel.Comment" Role="Comment" Multiplicity="1" />
-    <End Type="DBPodrskaModel.Reply" Role="Reply" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Comment">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Reply">
-        <PropertyRef Name="CommentId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="AspNetUserRoles">
     <End Type="DBPodrskaModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
     <End Type="DBPodrskaModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
@@ -245,7 +196,7 @@
     <Property Name="Category" Type="Int32" Nullable="false" />
     <Property Name="Severity" Type="Int32" Nullable="false" />
     <Property Name="Priority" Type="Int32" Nullable="false" />
-    <Property Name="RaisedBy" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="RaisedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="RaisedOn" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="DueOn" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="ResolvedOn" Type="DateTime" Precision="0" />

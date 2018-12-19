@@ -8,16 +8,36 @@ using System.Web;
 using System.Web.Mvc;
 using SupportSystemApp.Models;
 
+
+
+
+
+using System.Globalization;
+
+using System.Security.Claims;
+using System.Threading.Tasks;
+
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+
 namespace SupportSystemApp.Controllers
 {
     public class AspNetUsersController : Controller
     {
+        public AspNetUsersController()
+        {
+            context = new ApplicationDbContext();
+        }
         private DBPodrskaEntities db = new DBPodrskaEntities();
+        private ApplicationDbContext context;
 
         // GET: AspNetUsers
         public ActionResult Index()
         {
-            return View(db.AspNetUsers.ToList());
+            var aspNetUsers = db.AspNetUsers ;
+            
+            return View(aspNetUsers.ToList());
         }
 
         // GET: AspNetUsers/Details/5
@@ -66,11 +86,24 @@ namespace SupportSystemApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             AspNetUser aspNetUser = db.AspNetUsers.Find(id);
+            AspNetUsersEdit UE = new AspNetUsersEdit();
+            UE.Id = aspNetUser.Id;
+            UE.UserName = aspNetUser.UserName;
+            UE.Email = aspNetUser.Email;
+            UE.UserAddress = aspNetUser.UserAddress;
+            UE.UserCity = aspNetUser.UserCity;
+            UE.UserCountry = aspNetUser.UserCountry;
+            UE.PhoneNumber = aspNetUser.PhoneNumber;
+             
             if (aspNetUser == null)
             {
                 return HttpNotFound();
             }
-            return View(aspNetUser);
+            
+            ViewBag.Role = new SelectList(context.Roles
+                                    .ToList(),"Id", "Name"/*, aspNetUser.UserRoles*/);
+            
+            return View("Edit2",UE);
         }
 
         // POST: AspNetUsers/Edit/5
@@ -78,11 +111,13 @@ namespace SupportSystemApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] AspNetUser aspNetUser)
+        public ActionResult Edit([Bind(Include = "Id,Email,PhoneNumber,UserName,UserAddress,UserCity,UserCountry,UserRole")] AspNetUser aspNetUser)
         {
             if (ModelState.IsValid)
             {
+                
                 db.Entry(aspNetUser).State = EntityState.Modified;
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

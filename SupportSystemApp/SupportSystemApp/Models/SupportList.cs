@@ -31,6 +31,5 @@ namespace SupportSystemApp.Models
         public virtual SeverityList SeverityList { get; set; }
         public virtual StatusesList StatusesList { get; set; }
         public virtual CategoryList CategoryList { get; set; }
-        public virtual AspNetUser AspNetUsers { get; internal set; }
     }
 }

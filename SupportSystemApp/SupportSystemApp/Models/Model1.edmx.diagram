@@ -10,17 +10,13 @@
         <EntityTypeShape EntityType="DBPodrskaModel.SeverityList" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DBPodrskaModel.StatusesList" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBPodrskaModel.C__MigrationHistory" Width="1.5" PointX="7.625" PointY="7.625" />
-        <EntityTypeShape EntityType="DBPodrskaModel.AspNetRole" Width="1.5" PointX="5.375" PointY="4" />
+        <EntityTypeShape EntityType="DBPodrskaModel.AspNetRole" Width="1.5" PointX="5.25" PointY="3.875" />
         <EntityTypeShape EntityType="DBPodrskaModel.AspNetUserClaim" Width="1.5" PointX="9.875" PointY="3.875" />
         <EntityTypeShape EntityType="DBPodrskaModel.AspNetUserLogin" Width="1.5" PointX="9.875" PointY="6.625" />
         <EntityTypeShape EntityType="DBPodrskaModel.AspNetUser" Width="1.5" PointX="7.25" PointY="0.5" />
-        <EntityTypeShape EntityType="DBPodrskaModel.Comment" Width="1.5" PointX="9.875" PointY="1.125" />
-        <EntityTypeShape EntityType="DBPodrskaModel.Reply" Width="1.5" PointX="12.125" PointY="1.25" />
         <EntityTypeShape EntityType="DBPodrskaModel.sysdiagram" Width="1.5" PointX="5.5" PointY="6.875" />
         <AssociationConnector Association="DBPodrskaModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="DBPodrskaModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
-        <AssociationConnector Association="DBPodrskaModel.FK_Comments_AspNetUsers" />
-        <AssociationConnector Association="DBPodrskaModel.FK_Replies_Comments" />
         <AssociationConnector Association="DBPodrskaModel.AspNetUserRoles" />
         <EntityTypeShape EntityType="DBPodrskaModel.SupportList" Width="1.5" PointX="1" PointY="5.125" />
         <AssociationConnector Association="DBPodrskaModel.FK_SupportList_PriorityList" />
