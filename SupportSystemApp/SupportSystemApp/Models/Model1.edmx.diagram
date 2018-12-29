@@ -25,6 +25,9 @@
         <AssociationConnector Association="DBPodrskaModel.FK_SupportList_StatusesList" />
         <EntityTypeShape EntityType="DBPodrskaModel.CategoryList" Width="1.5" PointX="4.75" PointY="1.625" />
         <AssociationConnector Association="DBPodrskaModel.FK_SupportList_CategoryList" />
+        <EntityTypeShape EntityType="DBPodrskaModel.Comment" Width="1.5" PointX="9.5" PointY="1.125" />
+        <AssociationConnector Association="DBPodrskaModel.FK_Comments_AspNetUsers" />
+        <AssociationConnector Association="DBPodrskaModel.FK_Comments_SupportList" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

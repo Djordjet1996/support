@@ -37,5 +37,6 @@ namespace SupportSystemApp.Models
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<SupportList> SupportLists { get; set; }
         public virtual DbSet<CategoryList> CategoryLists { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
     }
 }

@@ -79,6 +79,15 @@
       <End Role="CategoryList" EntitySet="CategoryLists" />
       <End Role="SupportList" EntitySet="SupportLists" />
     </AssociationSet>
+    <EntitySet Name="Comments" EntityType="DBPodrskaModel.Comment" />
+    <AssociationSet Name="FK_Comments_AspNetUsers" Association="DBPodrskaModel.FK_Comments_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_SupportList" Association="DBPodrskaModel.FK_Comments_SupportList">
+      <End Role="SupportList" EntitySet="SupportLists" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="C__MigrationHistory">
     <Key>
@@ -128,7 +137,6 @@
     <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
     <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
     <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
     <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
@@ -143,6 +151,7 @@
     <Property Name="UserCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="UserPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Activ" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Comments" Relationship="DBPodrskaModel.FK_Comments_AspNetUsers" FromRole="AspNetUser" ToRole="Comment" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
@@ -206,6 +215,7 @@
     <NavigationProperty Name="SeverityList" Relationship="DBPodrskaModel.FK_SupportList_SeverityList" FromRole="SupportList" ToRole="SeverityList" />
     <NavigationProperty Name="StatusesList" Relationship="DBPodrskaModel.FK_SupportList_StatusesList" FromRole="SupportList" ToRole="StatusesList" />
     <NavigationProperty Name="CategoryList" Relationship="DBPodrskaModel.FK_SupportList_CategoryList" FromRole="SupportList" ToRole="CategoryList" />
+    <NavigationProperty Name="Comments" Relationship="DBPodrskaModel.FK_Comments_SupportList" FromRole="SupportList" ToRole="Comment" />
   </EntityType>
   <Association Name="FK_SupportList_PriorityList">
     <End Type="DBPodrskaModel.PriorityList" Role="PriorityList" Multiplicity="1" />
@@ -272,6 +282,41 @@
       </Principal>
       <Dependent Role="SupportList">
         <PropertyRef Name="Category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="AspNetUsersId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="DBPodrskaModel.FK_Comments_AspNetUsers" FromRole="Comment" ToRole="AspNetUser" />
+    <Property Name="TicketNoID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="SupportList" Relationship="DBPodrskaModel.FK_Comments_SupportList" FromRole="Comment" ToRole="SupportList" />
+  </EntityType>
+  <Association Name="FK_Comments_AspNetUsers">
+    <End Type="DBPodrskaModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="DBPodrskaModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="AspNetUsersId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_SupportList">
+    <End Type="DBPodrskaModel.SupportList" Role="SupportList" Multiplicity="1" />
+    <End Type="DBPodrskaModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SupportList">
+        <PropertyRef Name="TicketNo" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="TicketNoID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

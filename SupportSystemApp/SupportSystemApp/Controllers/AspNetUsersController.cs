@@ -78,51 +78,51 @@ namespace SupportSystemApp.Controllers
             return View(aspNetUser);
         }
 
-        // GET: AspNetUsers/Edit/5
-        public ActionResult Edit(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            AspNetUser aspNetUser = db.AspNetUsers.Find(id);
-            AspNetUsersEdit UE = new AspNetUsersEdit();
-            UE.Id = aspNetUser.Id;
-            UE.UserName = aspNetUser.UserName;
-            UE.Email = aspNetUser.Email;
-            UE.UserAddress = aspNetUser.UserAddress;
-            UE.UserCity = aspNetUser.UserCity;
-            UE.UserCountry = aspNetUser.UserCountry;
-            UE.PhoneNumber = aspNetUser.PhoneNumber;
+        //// GET: AspNetUsers/Edit/5
+        //public ActionResult Edit(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    AspNetUser aspNetUser = db.AspNetUsers.Find(id);
+        //    AspNetUsersEdit UE = new AspNetUsersEdit();
+        //    UE.Id = aspNetUser.Id;
+        //    UE.UserName = aspNetUser.UserName;
+        //    UE.Email = aspNetUser.Email;
+        //    UE.UserAddress = aspNetUser.UserAddress;
+        //    UE.UserCity = aspNetUser.UserCity;
+        //    UE.UserCountry = aspNetUser.UserCountry;
+        //    UE.UserPhone = aspNetUser.UserPhone;
              
-            if (aspNetUser == null)
-            {
-                return HttpNotFound();
-            }
+        //    if (aspNetUser == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
             
-            ViewBag.Role = new SelectList(context.Roles
-                                    .ToList(),"Id", "Name"/*, aspNetUser.UserRoles*/);
+        //    ViewBag.Role = new SelectList(context.Roles
+        //                            .ToList(),"Id", "Name"/*, aspNetUser.UserRoles*/);
             
-            return View("Edit2",UE);
-        }
+        //    return View("Edit2",UE);
+        //}
 
-        // POST: AspNetUsers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Email,PhoneNumber,UserName,UserAddress,UserCity,UserCountry,UserRole")] AspNetUser aspNetUser)
-        {
-            if (ModelState.IsValid)
-            {
+        //// POST: AspNetUsers/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "Id,Email,PhoneNumber,UserName,UserAddress,UserCity,UserCountry,UserRole")] AspNetUser aspNetUser)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
                 
-                db.Entry(aspNetUser).State = EntityState.Modified;
+        //        db.Entry(aspNetUser).State = EntityState.Modified;
                 
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(aspNetUser);
-        }
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(aspNetUser);
+        //}
 
         // GET: AspNetUsers/Delete/5
         public ActionResult Delete(string id)

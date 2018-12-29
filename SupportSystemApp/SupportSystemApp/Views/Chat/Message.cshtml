@@ -1,7 +1,6 @@
-﻿@model SupportSystemApp.Models.Message
-
+﻿@model SupportSystemApp.Models.Comment
 <div>
-    <h4>@Model.Name</h4>
-    <h6>@Model.Time</h6>
-    <p>@Model.Content</p>
+    <h4>@Model.AspNetUser.UserName</h4>
+    
+    <p>@Model.Message</p>
 </div>

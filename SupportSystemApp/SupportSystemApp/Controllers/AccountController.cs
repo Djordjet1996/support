@@ -19,10 +19,12 @@ namespace SupportSystemApp.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private ApplicationDbContext context;
+        private DBPodrskaEntities db;
 
         public AccountController()
         {
-             context = new ApplicationDbContext();
+            context = new ApplicationDbContext();
+            db = new DBPodrskaEntities();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -55,56 +57,82 @@ namespace SupportSystemApp.Controllers
             }
         }
 
-
+        [Authorize(Roles = "Admin")]
         public ActionResult UsersWithRoles()
         {
-            var usersWithRoles = (from user in context.Users
-                                  select new
+            var usersWithRoles = (from user in db.AspNetUsers
+                                  from userRole in user.AspNetRoles
+                                  join role in db.AspNetRoles on userRole.Id equals
+                                  role.Id
+                                  select new Users_in_Role_ViewModel()
                                   {
                                       UserId = user.Id,
-                                      Username = user.UserName,
+                                     
                                       Email = user.Email,
-                                      RoleNames = (from userRole in user.Roles
-                                                   join role in context.Roles on userRole.RoleId
-                                                   equals role.Id
-                                                   select role.Name).ToList()
-                                  }).ToList().Select(p => new Users_in_Role_ViewModel()
-
-                                  {
-                                      UserId = p.UserId,
-                                      Username = p.Username,
-                                      Email = p.Email,
-                                      Role = string.Join(",", p.RoleNames)
-                                  });
-
-
+                                      UserAddress = user.UserAddress,
+                                      UserCity = user.UserCity,
+                                      UserCountry = user.UserCountry,
+                                      UserPhone = user.UserPhone,
+                                      Role = role.Name,
+                                      Username = user.UserName,
+                                      Activ = user.Activ
+                                  }).ToList();
             return View(usersWithRoles);
         }
-
-        public ActionResult Edit(string Id)
+        [Authorize(Roles = "Admin")]
+        public ActionResult Edit(string id)
         {
-            var usersWithRoles = (from user in context.Users
-                                  select new
+            var usersWithRoles = (from user in db.AspNetUsers
+                                  from userRole in user.AspNetRoles
+                                  join role in db.AspNetRoles on userRole.Id equals
+                                  role.Id
+                                  select new Users_in_Role_ViewModel
                                   {
                                       UserId = user.Id,
                                       Username = user.UserName,
                                       Email = user.Email,
-                                      Role = (from userRole in user.Roles
-                                                   join role in context.Roles on userRole.RoleId
-                                                   equals role.Id
-                                                   select role.Name).ToList()
-                                  }).ToList().Select(p => new Users_in_Role_ViewModel()
-
-                                  {
-                                      UserId = p.UserId,
-                                      Username = p.Username,
-                                      Email = p.Email,
-                                      Role = string.Join(",", p.Role)
-                                  });
-
-
+                                      UserAddress = user.UserAddress,
+                                      UserCity = user.UserCity,
+                                      UserCountry = user.UserCountry,
+                                      UserPhone = user.UserPhone,
+                                      Role = role.Name,
+                                      Activ = user.Activ,
+                                  }).Where(x => x.UserId == id).FirstOrDefault();
+            if (usersWithRoles == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Roles = new SelectList(db.AspNetRoles.ToList(), "Name", "Name");
             return View(usersWithRoles);
         }
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public async Task<ActionResult> Edit(Users_in_Role_ViewModel users)
+        {
+            if (ModelState.IsValid)
+            {
+                AspNetUser dataModel = db.AspNetUsers.Where(x => x.Id == users.UserId).First();
+                dataModel.Id = users.UserId;
+                
+                dataModel.Email = users.Email;
+                dataModel.UserAddress = users.UserAddress;
+                dataModel.UserCity = users.UserCity;
+                dataModel.UserCountry = users.UserCountry;
+                dataModel.UserPhone = users.UserPhone;
+                dataModel.UserName = users.Username;
+                dataModel.Activ = users.Activ;
+                var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+                var userRoles = await userManager.GetRolesAsync(users.UserId);
+                await userManager.RemoveFromRolesAsync(users.UserId, userRoles.ToArray());
+                await userManager.AddToRoleAsync(users.UserId, users.Role);
+                db.SaveChanges();
+                return RedirectToAction("UsersWithRoles");
+            }
+            return View();
+        }
+
+
 
         //
         // GET: /Account/Login
@@ -129,7 +157,7 @@ namespace SupportSystemApp.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
             switch (result)
             {
                 case SignInStatus.Success:

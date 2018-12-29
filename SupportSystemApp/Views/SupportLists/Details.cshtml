@@ -1,0 +1,99 @@
+﻿@model SupportSystemApp.Models.SupportList
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SupportList</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RaisedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RaisedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RaisedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RaisedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DueOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DueOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ResolvedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResolvedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriorityList.PriorityName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriorityList.PriorityName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SectionsList.SectionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SectionsList.SectionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SeverityList.SeverityName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SeverityList.SeverityName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusesList.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusesList.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryList.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryList.CategoryName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TicketNo }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

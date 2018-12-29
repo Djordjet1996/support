@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm("StartChat", "Chat"))
+{
+    @Html.Label("Enter name")
+    @Html.TextBox("name")
+    <input type="submit" value="ENTER"/>
+}
+

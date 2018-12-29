@@ -14,6 +14,12 @@ namespace SupportSystemApp.Models
     
     public partial class SupportList
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SupportList()
+        {
+            this.Comments = new HashSet<Comment>();
+        }
+    
         public int TicketNo { get; set; }
         public string Title { get; set; }
         public int Status { get; set; }
@@ -31,5 +37,7 @@ namespace SupportSystemApp.Models
         public virtual SeverityList SeverityList { get; set; }
         public virtual StatusesList StatusesList { get; set; }
         public virtual CategoryList CategoryList { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

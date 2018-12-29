@@ -58,7 +58,6 @@
           <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
           <Property Name="PasswordHash" Type="nvarchar(max)" />
           <Property Name="SecurityStamp" Type="nvarchar(max)" />
-          <Property Name="PhoneNumber" Type="nvarchar(max)" />
           <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
           <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
           <Property Name="LockoutEndDateUtc" Type="datetime" />
@@ -70,6 +69,7 @@
           <Property Name="UserCountry" Type="nvarchar" MaxLength="50" />
           <Property Name="UserPhone" Type="nvarchar" MaxLength="50" />
           <Property Name="Activ" Type="bit" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CategoryList">
           <Key>
@@ -77,6 +77,15 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="AspNetUsersId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TicketNoID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="PriorityList">
           <Key>
@@ -104,7 +113,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -134,6 +143,30 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <Association Name="FK_Comments_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="AspNetUsersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_SupportList">
+          <End Role="SupportList" Type="Self.SupportList" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupportList">
+              <PropertyRef Name="TicketNo" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="TicketNoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -258,12 +291,21 @@
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CategoryList" EntityType="Self.CategoryList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PriorityList" EntityType="Self.PriorityList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SectionsList" EntityType="Self.SectionsList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SeverityList" EntityType="Self.SeverityList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StatusesList" EntityType="Self.StatusesList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupportList" EntityType="Self.SupportList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Comments_AspNetUsers" Association="Self.FK_Comments_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_SupportList" Association="Self.FK_Comments_SupportList">
+            <End Role="SupportList" EntitySet="SupportList" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -384,6 +426,15 @@
             <End Role="CategoryList" EntitySet="CategoryLists" />
             <End Role="SupportList" EntitySet="SupportLists" />
           </AssociationSet>
+          <EntitySet Name="Comments" EntityType="DBPodrskaModel.Comment" />
+          <AssociationSet Name="FK_Comments_AspNetUsers" Association="DBPodrskaModel.FK_Comments_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_SupportList" Association="DBPodrskaModel.FK_Comments_SupportList">
+            <End Role="SupportList" EntitySet="SupportLists" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -433,7 +484,6 @@
           <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
           <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
           <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
           <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
@@ -448,6 +498,7 @@
           <Property Name="UserCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UserPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Activ" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Comments" Relationship="DBPodrskaModel.FK_Comments_AspNetUsers" FromRole="AspNetUser" ToRole="Comment" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -511,6 +562,7 @@
           <NavigationProperty Name="SeverityList" Relationship="DBPodrskaModel.FK_SupportList_SeverityList" FromRole="SupportList" ToRole="SeverityList" />
           <NavigationProperty Name="StatusesList" Relationship="DBPodrskaModel.FK_SupportList_StatusesList" FromRole="SupportList" ToRole="StatusesList" />
           <NavigationProperty Name="CategoryList" Relationship="DBPodrskaModel.FK_SupportList_CategoryList" FromRole="SupportList" ToRole="CategoryList" />
+          <NavigationProperty Name="Comments" Relationship="DBPodrskaModel.FK_Comments_SupportList" FromRole="SupportList" ToRole="Comment" />
         </EntityType>
         <Association Name="FK_SupportList_PriorityList">
           <End Type="DBPodrskaModel.PriorityList" Role="PriorityList" Multiplicity="1" />
@@ -577,6 +629,41 @@
             </Principal>
             <Dependent Role="SupportList">
               <PropertyRef Name="Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="AspNetUsersId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="DBPodrskaModel.FK_Comments_AspNetUsers" FromRole="Comment" ToRole="AspNetUser" />
+          <Property Name="TicketNoID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SupportList" Relationship="DBPodrskaModel.FK_Comments_SupportList" FromRole="Comment" ToRole="SupportList" />
+        </EntityType>
+        <Association Name="FK_Comments_AspNetUsers">
+          <End Type="DBPodrskaModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="DBPodrskaModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="AspNetUsersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_SupportList">
+          <End Type="DBPodrskaModel.SupportList" Role="SupportList" Multiplicity="1" />
+          <End Type="DBPodrskaModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupportList">
+              <PropertyRef Name="TicketNo" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="TicketNoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -671,7 +758,6 @@
                 <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
                 <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
                 <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
                 <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
                 <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
@@ -721,6 +807,16 @@
               <MappingFragment StoreEntitySet="CategoryList">
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="DBPodrskaModel.Comment">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="TicketNoID" ColumnName="TicketNoID" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AspNetUsersId" ColumnName="AspNetUsersId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

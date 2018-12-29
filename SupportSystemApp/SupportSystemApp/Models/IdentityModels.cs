@@ -1,7 +1,9 @@
-﻿using System.Security.Claims;
+﻿
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+
 
 namespace SupportSystemApp.Models
 {
@@ -15,6 +17,14 @@ namespace SupportSystemApp.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public string UserPhone { get; set; }
+        public string UserAddress { get; set; }
+        public string UserCity { get; set; }
+        public string UserCountry { get; set; }
+        public bool Activ {get; set;}
+        
+
+        
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

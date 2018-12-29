@@ -1,115 +1,379 @@
 ﻿@model SupportSystemApp.Models.SupportList
 
-@{
-    ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+
+<h2 style="margin-left:150px">Edit</h2>
+
+@{ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<style>
+    ul.foo{
+        padding-left:0px;
+        padding-right:0px;
+    }
+    div.commentsDiv {
+        position: absolute;
+        top: 50px;
+        right: 0;
+        width: 800px;
+        height: 500px;
+        border: 1px solid #000000;
+    }
+
+    textarea {
+        border: 2px solid #dedede;
+        background-color: #f1f1f1;
+        border-radius: 5px;
+        margin-top: 20px;
+        padding: 20px;
+        min-width: 400px;
+    }
+
+    li {
+        list-style-type: none;
+    }
+
+    .body-content {
+        margin-right: 0px;
+        max-width: 1200px;
+    }
+
+    .row {
+        max-width: 1000px;
+    }
+    label{
+        margin-right:5px;
+    }
+    .ml{
+        margin-left: 100px;
+    }
+</style>
+
+
+<link src="https://code.jquery.com/jquery-3.3.1.min.js" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        jQuery("#add-comment").click(function () {
+            jQuery('#comment-modal').modal();
+        });
+
+
+
+
+
+
+    });</script>
+
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>SupportList</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.TicketNo)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+
+    <div class="row">
+        <div class="col-sm-2">
+            @{
+                /**/
+
+
+                Layout = "~/Views/Shared/_Layout.cshtml";
+            }
+
+        </div>
+        <div class="col-sm-4">
+            <div class="form-horizontal">
+                <h4>SupportList</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.TicketNo)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Status, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("Status", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Category, "Category", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("Category", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Severity, "Severity", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("Severity", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Severity, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Priority, "Priority", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("Priority", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RaisedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.RaisedBy, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.RaisedBy, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RaisedOn, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.RaisedOn, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.RaisedOn, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DueOn, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DueOn, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DueOn, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ResolvedOn, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ResolvedOn, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ResolvedOn, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IDSectionList, "IDSectionList", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("IDSectionList", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IDSectionList, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
             </div>
+
+
+
+
+
+
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Status, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Status", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+        <div class="col-sm-6">
+
+
+            <button type="button" class="btn btn-primary" button id="add-comment">Add Comment</button>
+            <div id="commentsList">
+
+
+
             </div>
+
+
+
+
+
+            <script>
+                //send curent TicketNo to controler
+                //$(document).ready(function () {
+
+                //    var CurrentId = $('#TicketNo').val()
+                //    $.ajax({
+                //        //contentType: 'application-json; charset = utf-8',
+                //        dataType: 'json',
+                //        type: 'POST',
+                //        url: '/SupportLists/GetComments',
+                //        data:
+                //        {
+                //             CurrentId
+                //        },
+                //        success: function (data, status, xhr) {
+
+                //            console.log("Success");
+                //            location.reload();
+
+                //        },
+                //        error: function () {
+                //            console.log("Error!")
+                //        }
+
+                //    });
+                //})
+
+                //Get comments
+                var commentsData = [];
+
+                var a2 = getCommentsData();
+
+                $(document).ready(function () {
+                    $.when(a2).done(function () {
+                        loadComments();
+                        console.log(commentsData);
+                    });
+                });
+
+                function getCommentsData() {
+
+
+                    return $.ajax({
+                        url: "/SupportLists/GetComments",
+                        type: "GET",
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        data: '',
+                        success: function (data, status, xhr) {
+                            commentsData = data;
+                        },
+                        error: function (jqXhr, textStatus, errorMessage) {
+                            alert(errorMessage + "Error");
+                        }
+                    });
+                }
+
+
+
+
+                function loadComments() {
+                    var id = $('#TicketNo').val();
+                    var table = $('<ul>').addClass('foo');
+                    $.each(commentsData, function (i) {
+                        if (commentsData[i].TicketNoID == id) {
+                            var row = $('<li>').addClass('msg');
+                            var txt = $('<textarea readonly="yes">').text(commentsData[i].AspNetUsersId + ':   ' + commentsData[i].Message);
+                            table.append(row);
+                            row.append(txt);
+                            console.log(commentsData[i].Message);
+                            $("#commentsList").append(table);
+                        }
+                    });
+
+
+                }
+
+
+
+            </script>
+
+
+
+
+
+
+
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Category, "Category", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Category", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Severity, "Severity", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Severity", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Severity, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Priority, "Priority", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Priority", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <div class="modal" id="comment-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.RaisedBy, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RaisedBy, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RaisedBy, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.RaisedOn, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RaisedOn, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RaisedOn, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DueOn, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DueOn, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DueOn, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <textarea rows="4" id="comment" style="min-width: 100%"></textarea>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ResolvedOn, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ResolvedOn, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ResolvedOn, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IDSectionList, "IDSectionList", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IDSectionList", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IDSectionList, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" button id="Post-comment"> Post Comment</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
+
+
+
 }
 
-<div>
+
+
+<div class="ml">
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+@section Scripts
+           {
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+
+
+
+
+
+
+    <script>
+
+
+
+        $("#Post-comment").click(function () {
+            var message = $('#comment').val()
+            var id = $('#TicketNo').val()
+            $.ajax({
+                //contentType: 'application-json; charset = utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: '/Chat/SaveComment',
+                data:
+                {
+                    message, id
+                },
+                success: function (data, status, xhr) {
+
+                    console.log("Success");
+                    location.reload();
+
+                },
+                error: function () {
+                    console.log("Error!")
+                }
+
+            });
+        })
+
+
+
+
+
+
+    </script>
+
+    @*@Scripts.Render("~/bundles/jqueryval")*@
 }

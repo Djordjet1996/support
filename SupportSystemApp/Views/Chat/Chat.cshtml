@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Chat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Chat</h2>
+<div id="messages"></div>
+@using (Ajax.BeginForm("Chat", new AjaxOptions()
+{
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.InsertAfter,
+    UpdateTargetId = "messages"
+}))
+{
+    @Html.TextBox("msg")
+    <input type="submit" value="Send"/>
+}
+
