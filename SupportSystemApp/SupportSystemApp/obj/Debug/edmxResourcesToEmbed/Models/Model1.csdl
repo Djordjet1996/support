@@ -295,6 +295,7 @@
     <NavigationProperty Name="AspNetUser" Relationship="DBPodrskaModel.FK_Comments_AspNetUsers" FromRole="Comment" ToRole="AspNetUser" />
     <Property Name="TicketNoID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="SupportList" Relationship="DBPodrskaModel.FK_Comments_SupportList" FromRole="Comment" ToRole="SupportList" />
+    <Property Name="UserRoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="FK_Comments_AspNetUsers">
     <End Type="DBPodrskaModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />

@@ -86,6 +86,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
           <Property Name="TicketNoID" Type="int" Nullable="false" />
+          <Property Name="UserRoleName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PriorityList">
           <Key>
@@ -642,6 +643,7 @@
           <NavigationProperty Name="AspNetUser" Relationship="DBPodrskaModel.FK_Comments_AspNetUsers" FromRole="Comment" ToRole="AspNetUser" />
           <Property Name="TicketNoID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="SupportList" Relationship="DBPodrskaModel.FK_Comments_SupportList" FromRole="Comment" ToRole="SupportList" />
+          <Property Name="UserRoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Comments_AspNetUsers">
           <End Type="DBPodrskaModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
@@ -813,6 +815,7 @@
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="DBPodrskaModel.Comment">
               <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="UserRoleName" ColumnName="UserRoleName" />
                 <ScalarProperty Name="TicketNoID" ColumnName="TicketNoID" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

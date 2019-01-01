@@ -37,11 +37,13 @@ namespace SupportSystemApp.Controllers
             string result = "Error! Comment is not saved!";
             if (message != null)
             {
-                //SupportList sl = db.SupportLists.Find(id);
+
                 Comment comment = new Comment();
                 comment.Message = message;
                 comment.AspNetUsersId = User.Identity.GetUserId();
                 comment.TicketNoID = id;
+                if (User.IsInRole("Admin")) {
+                    comment.UserRoleName = "Admin";  };
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 result = "Success! Comment is saved!";
@@ -51,24 +53,7 @@ namespace SupportSystemApp.Controllers
         }
 
 
-        //public JsonResult GetComments(int id)
-        //{
-        //    IEnumerable<Comment> commentList = new List<Comment>();
-        //    using (DBPodrskaEntities db = new DBPodrskaEntities())
-        //    {
-        //        var comment = db.Comments.Where(x => x.TicketNoID == id).ToList();
-        //        commentList = comment.Select(x =>
-        //                    new Comment()
-        //                    {
-        //                        AspNetUsersId = x.AspNetUsersId,
-        //                        Id = x.Id,
-        //                        Message = x.Message,
-        //                        TicketNoID = x.TicketNoID
-        //                    });
-        //    }
-        //    return Json(commentList, JsonRequestBehavior.AllowGet);
-
-        //}
+        
 
 
     }

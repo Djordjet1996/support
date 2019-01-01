@@ -81,6 +81,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
     <Property Name="TicketNoID" Type="int" Nullable="false" />
+    <Property Name="UserRoleName" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="PriorityList">
     <Key>

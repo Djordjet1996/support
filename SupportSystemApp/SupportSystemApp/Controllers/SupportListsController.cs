@@ -122,14 +122,14 @@ namespace SupportSystemApp.Controllers
 
             
             List<SupportListComments> comments = db.Comments.Select(c => new SupportListComments
-            {
+            {       
 
                     Id = c.Id,
                     Message = c.Message,
                     AspNetUsersId = c.AspNetUser.UserName,
-                    TicketNoID = c.TicketNoID
-
-                }).ToList(); 
+                    TicketNoID = c.TicketNoID,
+                    UserRoleName = c.UserRoleName
+            }).ToList(); 
             return Json(comments, JsonRequestBehavior.AllowGet); 
         }
         //[Authorize]

@@ -18,6 +18,7 @@ namespace SupportSystemApp.Models
         public int Id { get; set; }
         public string Message { get; set; }
         public int TicketNoID { get; set; }
+        public string UserRoleName { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual SupportList SupportList { get; set; }

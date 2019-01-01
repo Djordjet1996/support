@@ -49,6 +49,10 @@
     .ml{
         margin-left: 100px;
     }
+    .cr{
+        margin-left : 30px;
+    }
+    
 </style>
 
 
@@ -203,31 +207,8 @@
 
 
             <script>
-                //send curent TicketNo to controler
-                //$(document).ready(function () {
-
-                //    var CurrentId = $('#TicketNo').val()
-                //    $.ajax({
-                //        //contentType: 'application-json; charset = utf-8',
-                //        dataType: 'json',
-                //        type: 'POST',
-                //        url: '/SupportLists/GetComments',
-                //        data:
-                //        {
-                //             CurrentId
-                //        },
-                //        success: function (data, status, xhr) {
-
-                //            console.log("Success");
-                //            location.reload();
-
-                //        },
-                //        error: function () {
-                //            console.log("Error!")
-                //        }
-
-                //    });
-                //})
+                
+                
 
                 //Get comments
                 var commentsData = [];
@@ -266,7 +247,17 @@
                     var id = $('#TicketNo').val();
                     var table = $('<ul>').addClass('foo');
                     $.each(commentsData, function (i) {
-                        if (commentsData[i].TicketNoID == id) {
+                        if (commentsData[i].TicketNoID == id && commentsData[i].UserRoleName == "Admin") {
+
+                            var row = $('<li class="cr">').addClass('msg');
+                            var txt = $('<textarea readonly="yes">').text(commentsData[i].AspNetUsersId + ':   ' + commentsData[i].Message);
+                            table.append(row);
+                            row.append(txt);
+                            console.log(commentsData[i].Message);
+                            $("#commentsList").append(table);
+                        }
+                        else if (commentsData[i].TicketNoID == id) {
+
                             var row = $('<li>').addClass('msg');
                             var txt = $('<textarea readonly="yes">').text(commentsData[i].AspNetUsersId + ':   ' + commentsData[i].Message);
                             table.append(row);
@@ -274,6 +265,7 @@
                             console.log(commentsData[i].Message);
                             $("#commentsList").append(table);
                         }
+                       
                     });
 
 
