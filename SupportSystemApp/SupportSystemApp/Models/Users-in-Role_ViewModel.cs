@@ -6,7 +6,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System.ComponentModel.DataAnnotations;
 
 namespace SupportSystemApp.Models
 {
@@ -14,7 +13,7 @@ namespace SupportSystemApp.Models
     {
         
 
-        [Key]
+        [System.ComponentModel.DataAnnotations.Key]
         public string UserId { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }

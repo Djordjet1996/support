@@ -1,4 +1,5 @@
 ﻿
+
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -17,6 +18,7 @@ namespace SupportSystemApp.Models
             // Add custom user claims here
             return userIdentity;
         }
+        
         public string UserPhone { get; set; }
         public string UserAddress { get; set; }
         public string UserCity { get; set; }
