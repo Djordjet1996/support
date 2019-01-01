@@ -11,7 +11,8 @@ namespace SupportSystemApp.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class SupportList
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,7 +20,7 @@ namespace SupportSystemApp.Models
         {
             this.Comments = new HashSet<Comment>();
         }
-    
+        [Required]
         public int TicketNo { get; set; }
         public string Title { get; set; }
         public int Status { get; set; }

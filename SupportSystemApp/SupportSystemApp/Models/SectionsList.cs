@@ -11,7 +11,8 @@ namespace SupportSystemApp.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class SectionsList
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,6 +22,7 @@ namespace SupportSystemApp.Models
         }
     
         public int ID { get; set; }
+        [Required]
         public string SectionName { get; set; }
         public string Description { get; set; }
     

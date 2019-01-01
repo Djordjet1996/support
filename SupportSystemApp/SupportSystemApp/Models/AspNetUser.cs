@@ -11,7 +11,8 @@ namespace SupportSystemApp.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class AspNetUser
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,6 +25,7 @@ namespace SupportSystemApp.Models
         }
     
         public string Id { get; set; }
+        [Required]
         public string Email { get; set; }
         public bool EmailConfirmed { get; set; }
         public string PasswordHash { get; set; }
@@ -33,6 +35,7 @@ namespace SupportSystemApp.Models
         public Nullable<System.DateTime> LockoutEndDateUtc { get; set; }
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
+        [Required]
         public string UserName { get; set; }
         public string UserAddress { get; set; }
         public string UserCity { get; set; }

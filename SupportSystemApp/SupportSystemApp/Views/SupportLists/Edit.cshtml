@@ -165,7 +165,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.ResolvedOn, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.ResolvedOn, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.ResolvedOn, new { htmlAttributes = new { @type = "date" } })
                         @Html.ValidationMessageFor(model => model.ResolvedOn, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -185,11 +185,6 @@
                 </div>
             </div>
 
-
-
-
-
-
         </div>
 
         <div class="col-sm-6">
@@ -198,19 +193,10 @@
             <button type="button" class="btn btn-primary" button id="add-comment">Add Comment</button>
             <div id="commentsList">
 
-
-
             </div>
-
-
-
-
-
             <script>
-                
-                
-
-                //Get comments
+                              
+              //Get comments
                 var commentsData = [];
 
                 var a2 = getCommentsData();
@@ -241,8 +227,6 @@
                 }
 
 
-
-
                 function loadComments() {
                     var id = $('#TicketNo').val();
                     var table = $('<ul>').addClass('foo');
@@ -271,20 +255,11 @@
 
                 }
 
-
-
             </script>
-
-
-
-
-
-
 
         </div>
 
     </div>
-
 
     <div class="modal" id="comment-modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -297,10 +272,7 @@
                 </div>
                 <div class="modal-body">
 
-
-
                     <textarea rows="4" id="comment" style="min-width: 100%"></textarea>
-
 
                 </div>
                 <div class="modal-footer">
@@ -311,11 +283,7 @@
         </div>
     </div>
 
-
-
 }
-
-
 
 <div class="ml">
     @Html.ActionLink("Back to List", "Index")
@@ -326,14 +294,7 @@
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
 
-
-
-
-
-
     <script>
-
-
 
         $("#Post-comment").click(function () {
             var message = $('#comment').val()
@@ -359,11 +320,6 @@
 
             });
         })
-
-
-
-
-
 
     </script>
 

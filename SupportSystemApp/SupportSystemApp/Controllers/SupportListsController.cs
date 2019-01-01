@@ -191,7 +191,7 @@ namespace SupportSystemApp.Controllers
 
         //}
 
-
+        [Authorize(Roles = "Admin")]
         // GET: SupportLists/Delete/5
         public ActionResult Delete(int? id)
         {
